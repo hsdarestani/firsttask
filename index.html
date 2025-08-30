@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TRAGWERK – Ein Rucksack. Drei Wege.</title>
+  <meta name="description" content="Minimalistischer, robuster und nachhaltiger Rucksack – für Uni, Business und Outdoor. Digitales iPad‑Formular mit Unterschrift & PDF‑Export." />
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- AOS (scroll reveal) -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- jsPDF for PDF export -->
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <!-- Signature Pad (touch + mouse) -->
+  <script src="https://cdn.jsdelivr.net/npm/signature_pad@5.0.2/dist/signature_pad.umd.min.js"></script>
+
+  <style>
+    /* Animated gradient blobs */
+    @keyframes drift {0%{transform:translate3d(0,0,0) rotate(0)}50%{transform:translate3d(24px,-12px,0) rotate(25deg)}100%{transform:translate3d(0,0,0) rotate(0)}}
+    .gradient-blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:drift 18s ease-in-out infinite}
+    /* Floating CTA pulse */
+    @keyframes pulseSoft {0%,100%{transform:translateY(0);box-shadow:0 12px 36px rgba(0,0,0,.14)}50%{transform:translateY(-2px);box-shadow:0 18px 48px rgba(0,0,0,.22)}}
+    .pulse-soft{animation:pulseSoft 2.8s ease-in-out infinite}
+    /* Scroll progress bar */
+    #progress{transform-origin:left center}
+  </style>
+</head>
+<body class="bg-gradient-to-b from-slate-50 via-white to-white text-slate-900 selection:bg-black selection:text-white">
+  <!-- Glassy Navbar + Scroll Progress -->
+  <div class="fixed top-0 left-0 right-0 z-50">
+    <div class="mx-auto max-w-6xl px-4 py-3 backdrop-blur bg-white/70 border-b rounded-b-2xl shadow-sm flex items-center justify-between">
+      <a href="#" class="font-semibold tracking-widest">TRAGWERK</a>
+      <nav class="hidden md:flex gap-6 text-sm text-slate-600">
+        <a href="#kaufen" class="hover:text-black">Produkt</a>
+        <a href="#formular" class="hover:text-black">Formular</a>
+      </nav>
+      <a href="#kaufen" class="rounded-xl bg-black text-white px-4 py-2 hover:bg-slate-800">Jetzt entdecken</a>
+    </div>
+    <div class="h-1 bg-black/90 scale-x-0" id="progress"></div>
+  </div>
+
+  <!-- HERO -->
+  <header class="relative overflow-hidden pt-16 md:pt-24">
+    <!-- animated gradient backdrop -->
+    <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div class="gradient-blob w-[60vw] h-[60vw] -top-[20vw] -left-[10vw]" style="background:radial-gradient(circle at center, rgba(220,205,180,0.35), transparent 60%)"></div>
+      <div class="gradient-blob w-[50vw] h-[50vw] -bottom-[20vw] -right-[10vw]" style="background:radial-gradient(circle at center, rgba(57,91,68,0.28), transparent 60%)"></div>
+    </div>
+
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <div data-aos="fade-up" data-aos-delay="50">
+          <p class="uppercase tracking-widest text-xs text-slate-500">TRAGWERK</p>
+          <h1 class="mt-3 text-4xl md:text-6xl font-semibold leading-tight">Ein Rucksack. <span class="text-slate-500">Drei Wege.</span></h1>
+          <p class="mt-4 text-lg text-slate-600 max-w-xl">Minimalistisch, robust und durchdacht – für <b>Uni</b>, <b>Business</b> und <b>Outdoor</b>. Passend zu deinem Tag. Gemacht, um lange zu bleiben.</p>
+          <div class="mt-6 flex flex-wrap gap-2">
+            <span class="inline-flex items-center gap-2 rounded-full border px-3 py-1 bg-white/60 backdrop-blur text-sm"><i data-lucide="graduation-cap" class="w-4 h-4"></i> Uni & Alltag</span>
+            <span class="inline-flex items-center gap-2 rounded-full border px-3 py-1 bg-white/60 backdrop-blur text-sm"><i data-lucide="building-2" class="w-4 h-4"></i> Office & City</span>
+            <span class="inline-flex items-center gap-2 rounded-full border px-3 py-1 bg-white/60 backdrop-blur text-sm"><i data-lucide="bike" class="w-4 h-4"></i> Outdoor & Weekend</span>
+          </div>
+          <div class="mt-8 flex gap-3">
+            <a href="#kaufen" class="rounded-2xl bg-black text-white px-5 py-3 hover:bg-slate-800 focus:ring-4 focus:ring-slate-300">Jetzt entdecken</a>
+            <a href="#formular" class="rounded-2xl border px-5 py-3 hover:bg-slate-50">Formular ausfüllen</a>
+          </div>
+        </div>
+        <div class="relative" data-aos="fade-up" data-aos-delay="150">
+          <img src="" alt="PROMPT: Minimalist product hero – stylish young professional wearing beige trench coat with sleek black backpack, bright minimal office, soft natural light, 3/4 view, depth of field" class="w-full rounded-3xl border shadow-lg aspect-[4/3] object-cover bg-slate-100 transition-transform duration-300 hover:scale-[1.02]" />
+          <div class="absolute -bottom-4 -right-4 hidden md:block">
+            <div class="rounded-2xl bg-white border px-4 py-3 shadow-xl flex items-center gap-3">
+              <i data-lucide="droplets" class="h-5 w-5"></i><span class="text-sm">Wasserabweisend</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PERSONA STRIPS -->
+  <section class="py-12">
+    <div class="mx-auto max-w-6xl px-6 grid md:grid-cols-3 gap-6">
+      <div class="rounded-2xl border p-5 bg-white/90 backdrop-blur flex items-start gap-4 transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl" data-aos="fade-up">
+        <i data-lucide="graduation-cap" class="h-5 w-5 mt-1"></i>
+        <div>
+          <h3 class="font-medium">Student Max</h3>
+          <p class="text-sm text-slate-600">Leicht, organisiert, laptop‑ready.</p>
+        </div>
+      </div>
+      <div class="rounded-2xl border p-5 bg-white/90 backdrop-blur flex items-start gap-4 transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl" data-aos="fade-up" data-aos-delay="100">
+        <i data-lucide="building-2" class="h-5 w-5 mt-1"></i>
+        <div>
+          <h3 class="font-medium">Young Professional Anna</h3>
+          <p class="text-sm text-slate-600">Clean Look, clever inside.</p>
+        </div>
+      </div>
+      <div class="rounded-2xl border p-5 bg-white/90 backdrop-blur flex items-start gap-4 transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl" data-aos="fade-up" data-aos-delay="200">
+        <i data-lucide="bike" class="h-5 w-5 mt-1"></i>
+        <div>
+          <h3 class="font-medium">Outdoor Jonas</h3>
+          <p class="text-sm text-slate-600">Robust, nachhaltig, weekend‑ready.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE GRID -->
+  <section class="py-8">
+    <div class="mx-auto max-w-6xl px-6 grid md:grid-cols-3 gap-6">
+      <div class="rounded-2xl border p-6 bg-white/90 backdrop-blur transition-transform shadow-sm hover:shadow-xl hover:-translate-y-1" data-aos="fade-up">
+        <div class="flex items-center gap-2 text-slate-700"><i data-lucide="shield" class="h-5 w-5"></i><b>Robuste Materialien</b></div>
+        <p class="text-sm text-slate-600 mt-2">Langlebiges Gewebe, verstärkte Nähte – gebaut für Jahre.</p>
+      </div>
+      <div class="rounded-2xl border p-6 bg-white/90 backdrop-blur transition-transform shadow-sm hover:shadow-xl hover:-translate-y-1" data-aos="fade-up" data-aos-delay="100">
+        <div class="flex items-center gap-2 text-slate-700"><i data-lucide="droplets" class="h-5 w-5"></i><b>Wasserabweisend</b></div>
+        <p class="text-sm text-slate-600 mt-2">Dein Equipment bleibt trocken – Regen kann warten.</p>
+      </div>
+      <div class="rounded-2xl border p-6 bg-white/90 backdrop-blur transition-transform shadow-sm hover:shadow-xl hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
+        <div class="flex items-center gap-2 text-slate-700"><i data-lucide="leaf" class="h-5 w-5"></i><b>Nachhaltig gedacht</b></div>
+        <p class="text-sm text-slate-600 mt-2">Aus recycelten Materialien, fair produziert.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="py-8">
+    <div class="mx-auto max-w-6xl px-6 grid md:grid-cols-3 gap-6">
+      <img src="" alt="PROMPT: Urban cyclist wearing olive backpack in modern European city street, motion blur, golden hour, lifestyle shot" class="w-full aspect-[4/3] object-cover rounded-2xl border bg-slate-100 transition-transform duration-300 hover:scale-[1.02]" data-aos="zoom-in" />
+      <img src="" alt="PROMPT: Minimal studio packshot of black backpack on pedestal, softside shadows, premium look, high key background" class="w-full aspect-[4/3] object-cover rounded-2xl border bg-slate-100 transition-transform duration-300 hover:scale-[1.02]" data-aos="zoom-in" data-aos-delay="100" />
+      <img src="" alt="PROMPT: Student on campus steps with beige hoodie and black backpack, casual smile, overcast soft light, Berlin" class="w-full aspect-[4/3] object-cover rounded-2xl border bg-slate-100 transition-transform duration-300 hover:scale-[1.02]" data-aos="zoom-in" data-aos-delay="200" />
+    </div>
+  </section>
+
+  <!-- BUY / COLORS -->
+  <section id="kaufen" class="py-16">
+    <div class="mx-auto max-w-6xl px-6 grid md:grid-cols-2 gap-10 items-center">
+      <div data-aos="fade-right">
+        <h2 class="text-3xl md:text-4xl font-semibold">Wähle deinen TRAGWERK</h2>
+        <p class="text-slate-600 mt-2">Drei Farben. Ein Look für alles: Stadt, Büro, Abenteuer.</p>
+        <ul class="mt-4 space-y-2 text-sm text-slate-700">
+          <li class="flex items-center gap-2"><i data-lucide="check" class="h-4 w-4"></i> Gepolstertes Laptop‑Fach (bis 16")</li>
+          <li class="flex items-center gap-2"><i data-lucide="check" class="h-4 w-4"></i> Verstecktes Wertsachen‑Fach</li>
+          <li class="flex items-center gap-2"><i data-lucide="check" class="h-4 w-4"></i> Atmungsaktive Rückenpolsterung</li>
+        </ul>
+        <div class="mt-6 flex gap-3">
+          <a href="#formular" class="rounded-2xl bg-black text-white px-5 py-3 hover:bg-slate-800">Jetzt bestellen</a>
+          <a href="#formular" class="rounded-2xl border px-5 py-3 hover:bg-slate-50">Fragen? Kontakt</a>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-4" data-aos="fade-left">
+        <img src="" alt="PROMPT: Black minimalist backpack packshot on neutral backdrop, premium shadows, colorway black" class="w-full aspect-square object-cover rounded-2xl border bg-slate-100" />
+        <img src="" alt="PROMPT: Sand/beige minimalist backpack packshot on neutral backdrop, colorway sand" class="w-full aspect-square object-cover rounded-2xl border bg-slate-100" />
+        <img src="" alt="PROMPT: Olive/forest green minimalist backpack packshot on neutral backdrop, colorway olive" class="w-full aspect-square object-cover rounded-2xl border bg-slate-100" />
+      </div>
+    </div>
+  </section>
+
+  <!-- SUSTAINABILITY strip -->
+  <section class="py-12 bg-slate-900 text-white">
+    <div class="mx-auto max-w-6xl px-6 grid md:grid-cols-3 gap-6 items-center">
+      <div class="col-span-2" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold">Nachhaltig – ohne Kompromisse</h3>
+        <p class="text-slate-300 mt-2">Recyceltes Polyester, faire Produktion, langlebiges Design. Weniger kaufen, länger tragen.</p>
+        <ul class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-2 text-sm">
+          <li class="flex items-center gap-2"><i data-lucide="leaf" class="h-4 w-4"></i> 70% recyceltes Material</li>
+          <li class="flex items-center gap-2"><i data-lucide="shield" class="h-4 w-4"></i> 2 Jahre Garantie</li>
+          <li class="flex items-center gap-2"><i data-lucide="droplets" class="h-4 w-4"></i> PFC‑freie Imprägnierung</li>
+        </ul>
+      </div>
+      <img src="" alt="PROMPT: Close-up macro of water beading on technical fabric, dark charcoal color, premium outdoor gear look" class="w-full rounded-2xl border object-cover aspect-[4/3] bg-slate-800" data-aos="zoom-in" />
+    </div>
+  </section>
+
+  <!-- DIGITAL FORM (sign + PDF) -->
+  <section id="formular" class="py-20 bg-white">
+    <div class="mx-auto max-w-5xl px-6">
+      <div class="mb-10" data-aos="fade-up">
+        <h2 class="text-3xl md:text-4xl font-semibold tracking-tight">Digitales Formular (iPad‑freundlich)</h2>
+        <p class="text-slate-600 mt-2">Ausfüllen, unterschreiben und automatisch als PDF speichern. Optionaler Cloud‑Upload via Webhook.</p>
+      </div>
+
+      <form id="tragwerkForm" class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-50 p-6 rounded-2xl border" data-aos="fade-up" data-aos-delay="100">
+        <div>
+          <label class="block text-sm text-slate-600 mb-1">Vorname</label>
+          <input name="vorname" required class="w-full rounded-xl border px-3 py-2" />
+        </div>
+        <div>
+          <label class="block text-sm text-slate-600 mb-1">Nachname</label>
+          <input name="nachname" required class="w-full rounded-xl border px-3 py-2" />
+        </div>
+        <div>
+          <label class="block text-sm text-slate-600 mb-1">E‑Mail</label>
+          <input type="email" name="email" required class="w-full rounded-xl border px-3 py-2" />
+        </div>
+        <div>
+          <label class="block text-sm text-slate-600 mb-1">Telefon</label>
+          <input name="telefon" class="w-full rounded-xl border px-3 py-2" />
+        </div>
+        <div>
+          <label class="block text-sm text-slate-600 mb-1">Tag / Datum</label>
+          <input type="date" name="datum" required class="w-full rounded-xl border px-3 py-2" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-sm text-slate-600 mb-1">Startzeit</label>
+            <input type="time" name="startzeit" required class="w-full rounded-xl border px-3 py-2" />
+          </div>
+          <div>
+            <label class="block text-sm text-slate-600 mb-1">Endzeit</label>
+            <input type="time" name="endzeit" required class="w-full rounded-xl border px-3 py-2" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm text-slate-600 mb-1">Anzahl Personen</label>
+          <input type="number" name="anzahl" min="1" class="w-full rounded-xl border px-3 py-2" />
+        </div>
+        <div>
+          <label class="block text-sm text-slate-600 mb-1">Ort</label>
+          <input name="ort" class="w-full rounded-xl border px-3 py-2" />
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-sm text-slate-600 mb-1">Notizen</label>
+          <textarea name="notizen" rows="4" class="w-full rounded-xl border px-3 py-2"></textarea>
+        </div>
+
+        <!-- Signature Pad -->
+        <div class="md:col-span-2">
+          <div class="w-full rounded-2xl border border-slate-200 bg-white">
+            <div class="flex items-center justify-between px-3 py-2 border-b border-slate-100 text-slate-600 text-sm">
+              <span>Unterschrift</span>
+              <button type="button" id="clearSig" class="inline-flex items-center gap-2 rounded-lg border px-2 py-1 hover:bg-slate-50"><i data-lucide="eraser" class="h-4 w-4"></i> Löschen</button>
+            </div>
+            <canvas id="sigCanvas" class="block w-full"></canvas>
+          </div>
+          <p class="text-xs text-slate-500 mt-2">Bitte mit Finger oder Stift unterschreiben.</p>
+        </div>
+
+        <div class="md:col-span-2 flex flex-wrap items-center gap-3 pt-2">
+          <button id="saveBtn" class="inline-flex items-center gap-2 rounded-xl bg-black text-white px-4 py-2 hover:bg-slate-800"><i data-lucide="download" class="h-4 w-4"></i> PDF speichern</button>
+          <a href="#" id="mailtoBtn" class="inline-flex items-center gap-2 rounded-xl border px-4 py-2 hover:bg-slate-50"><i data-lucide="mail" class="h-4 w-4"></i> Mail‑Entwurf öffnen</a>
+          <span id="statusMsg" class="text-sm text-slate-500"></span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Floating CTA -->
+  <div class="fixed right-5 bottom-5 z-40 hidden md:block">
+    <a href="#kaufen" class="pulse-soft rounded-full bg-black text-white px-5 py-3 shadow-xl hover:bg-slate-800">Jetzt entdecken</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="py-10 text-center text-sm text-slate-500">
+    <p>© <span id="year"></span> TRAGWERK. Alle Rechte vorbehalten.</p>
+  </footer>
+
+<script>
+  // ===== Config =====
+  const WEBHOOK_URL = ""; // e.g. "https://hook.integromat.com/xxxxx" – leave empty to disable upload
+
+  // ===== Init libs =====
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.lucide) window.lucide.createIcons();
+    if (window.AOS) AOS.init({ duration: 700, once: true, offset: 120, easing: 'ease-out-quart' });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  });
+
+  // ===== Scroll progress =====
+  const progress = document.getElementById('progress');
+  const onScroll = () => {
+    const s = window.scrollY; const h = document.documentElement.scrollHeight - window.innerHeight; const p = Math.max(0, Math.min(1, s / h));
+    progress.style.transform = `scaleX(${p})`;
+  };
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // ===== Signature Pad (HiDPI aware) =====
+  const canvas = document.getElementById('sigCanvas');
+  const clearBtn = document.getElementById('clearSig');
+  let sigPad;
+  function resizeCanvas() {
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    const width = canvas.parentElement.getBoundingClientRect().width;
+    const height = Math.max(160, Math.round(width * 0.35));
+    canvas.width = width * ratio; canvas.height = height * ratio;
+    canvas.style.width = width + 'px'; canvas.style.height = height + 'px';
+    const ctx = canvas.getContext('2d'); ctx.scale(ratio, ratio);
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, width, height);
+    if (sigPad) sigPad.clear();
+  }
+  function initSig(){
+    resizeCanvas();
+    sigPad = new window.SignaturePad.default(canvas, { minWidth: 0.6, maxWidth: 2.5, penColor: '#111827', backgroundColor: 'rgba(255,255,255,1)' });
+  }
+  window.addEventListener('resize', resizeCanvas); initSig();
+  clearBtn.addEventListener('click', () => sigPad.clear());
+
+  // ===== Form → PDF (jsPDF) + optional upload + mail draft =====
+  const form = document.getElementById('tragwerkForm');
+  const saveBtn = document.getElementById('saveBtn');
+  const mailBtn = document.getElementById('mailtoBtn');
+  const statusMsg = document.getElementById('statusMsg');
+
+  saveBtn.addEventListener('click', async (e) => {
+    e.preventDefault(); statusMsg.textContent = 'Wird verarbeitet…';
+    const fd = new FormData(form); const payload = Object.fromEntries(fd.entries());
+    const { jsPDF } = window.jspdf; const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+    const line = (y) => { doc.setDrawColor(230); doc.line(56, y, 539, y); };
+    let y = 64;
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(18); doc.text('TRAGWERK – Digitales Formular', 56, y); y += 18;
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(11); doc.text('Dieses Formular wurde digital ausgefüllt und unterschrieben.', 56, y); y += 22; line(y); y += 24;
+    const rows = [
+      ['Vorname', payload.vorname || ''], ['Nachname', payload.nachname || ''], ['E‑Mail', payload.email || ''],
+      ['Telefon', payload.telefon || ''], ['Tag/Datum', payload.datum || ''], ['Startzeit', payload.startzeit || ''],
+      ['Endzeit', payload.endzeit || ''], ['Anzahl Personen', payload.anzahl || ''], ['Ort', payload.ort || ''], ['Notizen', payload.notizen || '']
+    ];
+    doc.setFontSize(12);
+    rows.forEach(([k,v]) => { doc.setFont('helvetica','bold'); doc.text(k+':',56,y); doc.setFont('helvetica','normal'); doc.text(String(v||'-'), 180, y, { maxWidth: 360 }); y += 20; });
+    y += 10; line(y); y += 30; doc.setFont('helvetica','bold'); doc.text('Unterschrift:', 56, y);
+    if (!sigPad.isEmpty()) {
+      const dataUrl = sigPad.toDataURL('image/png');
+      try { doc.addImage(dataUrl, 'PNG', 180, y-14, 260, 80); } catch (e) {}
+    } else {
+      doc.setFont('helvetica','normal'); doc.text('— keine Unterschrift erfasst —', 180, y);
+    }
+    doc.setFontSize(9); doc.setTextColor(120); doc.text('Erzeugt von TRAGWERK Digitalform (iPad‑freundlich)', 56, 810);
+
+    const blob = doc.output('blob'); const fileName = `tragwerk-form-${Date.now()}.pdf`;
+    // download
+    const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = fileName; a.click(); URL.revokeObjectURL(url);
+
+    // optional upload
+    if (WEBHOOK_URL) {
+      try {
+        const up = new FormData(); up.append('file', new File([blob], fileName, { type: 'application/pdf' })); up.append('meta', JSON.stringify(payload));
+        const res = await fetch(WEBHOOK_URL, { method: 'POST', body: up });
+        if (!res.ok) throw new Error('Upload fehlgeschlagen');
+        statusMsg.textContent = 'PDF gespeichert · ✔ In die Cloud hochgeladen.';
+      } catch(err){ statusMsg.textContent = 'PDF gespeichert · (Upload optional) '+(err.message||'Upload fehlgeschlagen'); }
+    } else {
+      statusMsg.textContent = 'PDF gespeichert.';
+    }
+  });
+
+  mailBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const subject = encodeURIComponent('TRAGWERK – Digitales Formular');
+    const body = encodeURIComponent('Das PDF wurde heruntergeladen. Bitte im Anhang mitsenden.\nVielen Dank!');
+    window.location.href = `mailto:?subject=${subject}&body=${body}`;
+  });
+</script>
+</body>
+</html>
