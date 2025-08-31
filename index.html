@@ -300,7 +300,7 @@
     ['touchstart','touchmove'].forEach(evt => {
       canvas.addEventListener(evt, (e) => { e.preventDefault(); }, { passive: false });
     });
-  });
+
   }
   window.addEventListener('resize', resizeCanvas); initSig();
   clearBtn.addEventListener('click', () => sigPad.clear());
