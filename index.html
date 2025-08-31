@@ -16,13 +16,15 @@
   <!-- jsPDF for PDF export -->
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <!-- Signature Pad (touch + mouse) -->
-  <script src="https://cdn.jsdelivr.net/npm/signature_pad@5.0.2/dist/signature_pad.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+
 
   <style>
     /* Prevent horizontal scroll on small screens */
     html, body { overflow-x: hidden; }
     /* Signature pad must capture touch, not scroll */
     #sigCanvas { touch-action: none; -ms-touch-action: none; overscroll-behavior: contain; }
+    
     /* Animated gradient blobs */
     @keyframes drift {0%{transform:translate3d(0,0,0) rotate(0)}50%{transform:translate3d(24px,-12px,0) rotate(25deg)}100%{transform:translate3d(0,0,0) rotate(0)}}
     .gradient-blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:drift 18s ease-in-out infinite}
@@ -295,7 +297,8 @@
   }
   function initSig(){
     resizeCanvas();
-    sigPad = new window.SignaturePad.default(canvas, { minWidth: 0.6, maxWidth: 2.5, penColor: '#111827', backgroundColor: 'rgba(255,255,255,1)' });
+    sigPad = new window.SignaturePad(canvas, { minWidth: 0.6, maxWidth: 2.5, penColor: '#111827', backgroundColor: 'rgba(255,255,255,1)' });
+
     // prevent page scroll while drawing on touch devices
     ['touchstart','touchmove'].forEach(evt => {
       canvas.addEventListener(evt, (e) => { e.preventDefault(); }, { passive: false });
