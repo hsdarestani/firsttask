@@ -180,11 +180,19 @@
   </section>
 
   <!-- DIGITAL FORM (sign + PDF) -->
-  <section id="formular" class="py-20 bg-white">
-    <div class="mx-auto max-w-5xl px-6">
+<!-- DIGITAL FORM + OCR UPLOAD (tabs) -->
+<section id="formular" class="py-20 bg-white">
+  <div class="mx-auto max-w-5xl px-6">
+    <div class="mb-6 flex items-center gap-2">
+      <button id="tabForm" class="rounded-xl px-4 py-2 border bg-black text-white">Digital ausfüllen</button>
+      <button id="tabUpload" class="rounded-xl px-4 py-2 border hover:bg-slate-50">Foto/PDF hochladen</button>
+    </div>
+
+    <!-- Panel: Digitales Formular (قبلیِ خودت، بدون تغییر جدی) -->
+    <div id="panelForm">
       <div class="mb-10" data-aos="fade-up">
-        <h2 class="text-3xl md:text-4xl font-semibold tracking-tight">Digitales Formular (iPad‑freundlich)</h2>
-        <p class="text-slate-600 mt-2">Ausfüllen, unterschreiben und automatisch als PDF speichern. Optionaler Cloud‑Upload via Webhook.</p>
+        <h2 class="text-3xl md:text-4xl font-semibold tracking-tight">Digitales Formular (iPad-freundlich)</h2>
+        <p class="text-slate-600 mt-2">Ausfüllen, unterschreiben und automatisch als PDF speichern. Optionaler Cloud-Upload via Webhook.</p>
       </div>
 
       <form id="tragwerkForm" class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-50 p-6 rounded-2xl border" data-aos="fade-up" data-aos-delay="100">
@@ -197,7 +205,7 @@
           <input name="nachname" required class="w-full rounded-xl border px-3 py-2" />
         </div>
         <div>
-          <label class="block text-sm text-slate-600 mb-1">E‑Mail</label>
+          <label class="block text-sm text-slate-600 mb-1">E-Mail</label>
           <input type="email" name="email" required class="w-full rounded-xl border px-3 py-2" />
         </div>
         <div>
@@ -236,7 +244,9 @@
           <div class="w-full rounded-2xl border border-slate-200 bg-white">
             <div class="flex items-center justify-between px-3 py-2 border-b border-slate-100 text-slate-600 text-sm">
               <span>Unterschrift</span>
-              <button type="button" id="clearSig" class="inline-flex items-center gap-2 rounded-lg border px-2 py-1 hover:bg-slate-50"><i data-lucide="eraser" class="h-4 w-4"></i> Löschen</button>
+              <button type="button" id="clearSig" class="inline-flex items-center gap-2 rounded-lg border px-2 py-1 hover:bg-slate-50">
+                <i data-lucide="eraser" class="h-4 w-4"></i> Löschen
+              </button>
             </div>
             <canvas id="sigCanvas" class="block w-full"></canvas>
           </div>
@@ -244,13 +254,49 @@
         </div>
 
         <div class="md:col-span-2 flex flex-wrap items-center gap-3 pt-2">
-          <button id="saveBtn" class="inline-flex items-center gap-2 rounded-xl bg-black text-white px-4 py-2 hover:bg-slate-800"><i data-lucide="download" class="h-4 w-4"></i> PDF speichern</button>
-          <a href="#" id="mailtoBtn" class="inline-flex items-center gap-2 rounded-xl border px-4 py-2 hover:bg-slate-50"><i data-lucide="mail" class="h-4 w-4"></i> Mail‑Entwurf öffnen</a>
+          <button id="saveBtn" class="inline-flex items-center gap-2 rounded-xl bg-black text-white px-4 py-2 hover:bg-slate-800">
+            <i data-lucide="download" class="h-4 w-4"></i> PDF speichern
+          </button>
+          <a href="#" id="mailtoBtn" class="inline-flex items-center gap-2 rounded-xl border px-4 py-2 hover:bg-slate-50">
+            <i data-lucide="mail" class="h-4 w-4"></i> Mail-Entwurf öffnen
+          </a>
           <span id="statusMsg" class="text-sm text-slate-500"></span>
         </div>
       </form>
     </div>
-  </section>
+
+    <!-- Panel: Upload → OCR (GPT) → Telegram -->
+    <div id="panelUpload" class="hidden">
+      <div class="mb-10">
+        <h2 class="text-3xl md:text-4xl font-semibold tracking-tight">Foto/PDF hochladen (automatisch auslesen)</h2>
+
+      </div>
+
+      <form id="ocrForm" class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-50 p-6 rounded-2xl border">
+        <div class="md:col-span-2">
+          <label class="block text-sm text-slate-600 mb-1">Datei</label>
+          <input type="file" name="file" accept=".jpg,.jpeg,.png,.pdf" required class="w-full rounded-xl border px-3 py-2 bg-white" />
+        
+        </div>
+        <div>
+          <label class="block text-sm text-slate-600 mb-1">Zusatzinfo (optional)</label>
+          <input name="hinweis" class="w-full rounded-xl border px-3 py-2" placeholder="z. B. Filiale, Ansprechpartner" />
+        </div>
+        <div>
+          <label class="block text-sm text-slate-600 mb-1">Kontakt (optional)</label>
+          <input name="kontakt" type="email" class="w-full rounded-xl border px-3 py-2" placeholder="email@example.com" />
+        </div>
+        <div class="md:col-span-2 flex items-center gap-3">
+          <button id="ocrSend" class="inline-flex items-center gap-2 rounded-xl bg-black text-white px-4 py-2 hover:bg-slate-800">
+            <i data-lucide="upload" class="h-4 w-4"></i> Upload & Auslesen
+          </button>
+          <span id="ocrStatus" class="text-sm text-slate-500"></span>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
 
   <!-- Floating CTA -->
   <div class="fixed right-5 bottom-5 z-40 hidden md:block">
@@ -263,8 +309,82 @@
   </footer>
 
 <script>
+
+const OCR_ENDPOINT = "https://flat-union-1be5.hsdf7rb.workers.dev/submit;" 
+
+const tabForm    = document.getElementById('tabForm');
+const tabUpload  = document.getElementById('tabUpload');
+const panelForm  = document.getElementById('panelForm');
+const panelUpload= document.getElementById('panelUpload');
+
+function activate(which){
+  if(which === 'form'){
+    panelForm.classList.remove('hidden');
+    panelUpload.classList.add('hidden');
+    tabForm.classList.add('bg-black','text-white');
+    tabUpload.classList.remove('bg-black','text-white');
+  }else{
+    panelUpload.classList.remove('hidden');
+    panelForm.classList.add('hidden');
+    tabUpload.classList.add('bg-black','text-white');
+    tabForm.classList.remove('bg-black','text-white');
+  }
+}
+tabForm?.addEventListener('click', (e)=>{ e.preventDefault(); activate('form'); });
+tabUpload?.addEventListener('click', (e)=>{ e.preventDefault(); activate('upload'); });
+activate('form'); // default
+
+// ===== OCR Upload → Worker → Telegram =====
+const ocrForm   = document.getElementById('ocrForm');
+const ocrStatus = document.getElementById('ocrStatus');
+
+ocrForm?.addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  if(!OCR_ENDPOINT){
+    ocrStatus.textContent = 'Kein OCR-Endpoint konfiguriert.';
+    return;
+  }
+  ocrStatus.textContent = 'Wird hochgeladen…';
+  const fd = new FormData(ocrForm);
+  // meta optional
+  const meta = {
+    hinweis: fd.get('hinweis') || '',
+    kontakt: fd.get('kontakt') || '',
+    source: 'ocr-upload',
+    tz: Intl.DateTimeFormat().resolvedOptions().timeZone || 'Europe/Berlin'
+  };
+  fd.set('meta', JSON.stringify(meta));
+
+  try{
+    const res = await fetch(OCR_ENDPOINT, { method:'POST', body: fd });
+    const json = await res.json().catch(()=>({}));
+    if(!res.ok || json.ok === false){
+      throw new Error(json.error || `HTTP ${res.status}`);
+    }
+    ocrStatus.textContent = 'Gesendet ✔';
+    // Optional: نمایش سریع نتیجهٔ OCR
+    if(json?.data){
+      console.log('OCR result:', json.data);
+      alert('Erkannte Daten:\n' + JSON.stringify(json.data, null, 2));
+    }
+  }catch(err){
+    ocrStatus.textContent = 'Fehler: ' + (err?.message || err);
+  }
+});
+const WORKER = "https://YOUR-SUBDOMAIN.workers.dev/submit"; // <-- عوض کن
+
+document.getElementById("ocrForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  // optional meta
+  fd.append("meta", JSON.stringify({ source:"firsttask", tz:"Europe/Berlin" }));
+  const res = await fetch(WORKER, { method:"POST", body: fd });
+  const j = await res.json();
+  document.getElementById("out").textContent = JSON.stringify(j, null, 2);
+});
+
   // ===== Config =====
-  const WEBHOOK_URL = "https://firsttask.hsdf7rb.workers.dev/submit"; // e.g. "https://hook.integromat.com/xxxxx" – leave empty to disable upload
+  const WEBHOOK_URL = "https://firsttask.hsdf7rb.workers.dev/submit"; 
 
   // ===== Init libs =====
   document.addEventListener('DOMContentLoaded', () => {
