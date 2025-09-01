@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TRAGWERK – Wholesale Brochure (A4 · 4pp)</title>
+  <!-- Brand Fonts (variable) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- BRAND TOKENS ---------- */
+    :root{
+      --charcoal:#111111; /* brand primary */
+      --sand:#DCCDB4;     /* brand neutral bg */
+      --forest:#395B44;   /* brand accent */
+      --ink:#0b0b0b;      /* body text */
+      --muted:#6b6b6b;
+      --grid:#e8e1d5;
+      --bleed:6mm;        /* simulated bleed area for print */
+    }
+
+    /* ---------- PRINT SETUP ---------- */
+    @page { size:A4; margin:0; }
+    html,body{ height:100%; background:#f4f2ee; }
+    body{ margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--ink); }
+
+    .sheet{ position:relative; width:210mm; height:297mm; margin:0 auto; background:white; page-break-after:always; overflow:hidden; }
+    .bleed{ position:absolute; inset:calc(-1 * var(--bleed)); border:0; }
+    .content{ position:absolute; inset:12mm; display:flex; flex-direction:column; gap:16px; }
+    .grid-bg{ position:absolute; inset:0; background-image: radial-gradient(circle at 1px 1px, var(--grid) 1px, transparent 0); background-size:16px 16px; opacity:.35; mix-blend-mode:multiply; }
+
+    /* crop marks */
+    .sheet::before, .sheet::after{ content:""; position:absolute; inset:0; pointer-events:none; }
+    .sheet::before{ background:
+      linear-gradient(var(--charcoal), var(--charcoal)) left 0 top calc(var(--bleed) - 2mm)/12mm 0.4mm no-repeat,
+      linear-gradient(var(--charcoal), var(--charcoal)) left calc(var(--bleed) - 2mm) top /0.4mm 12mm no-repeat,
+      linear-gradient(var(--charcoal), var(--charcoal)) right 0 top calc(var(--bleed) - 2mm)/12mm 0.4mm no-repeat,
+      linear-gradient(var(--charcoal), var(--charcoal)) right calc(var(--bleed) - 2mm) top /0.4mm 12mm no-repeat,
+      linear-gradient(var(--charcoal), var(--charcoal)) left 0 bottom calc(var(--bleed) - 2mm)/12mm 0.4mm no-repeat,
+      linear-gradient(var(--charcoal), var(--charcoal)) left calc(var(--bleed) - 2mm) bottom /0.4mm 12mm no-repeat,
+      linear-gradient(var(--charcoal), var(--charcoal)) right 0 bottom calc(var(--bleed) - 2mm)/12mm 0.4mm no-repeat,
+      linear-gradient(var(--charcoal), var(--charcoal)) right calc(var(--bleed) - 2mm) bottom /0.4mm 12mm no-repeat;
+      opacity:.45;
+    }
+
+    /* ---------- TYPOGRAPHY ---------- */
+    .brand{ font-family:'Space Grotesk', Inter, sans-serif; letter-spacing:.02em; }
+    h1{ font-family:'Space Grotesk', Inter, sans-serif; font-size:36px; line-height:1.1; margin:0; }
+    h2{ font-family:'Space Grotesk', Inter, sans-serif; font-size:20px; letter-spacing:.01em; margin:4px 0 0 0; color:var(--forest); }
+    p{ font-size:14px; line-height:1.6; margin:0; color:#222; }
+    .kicker{ text-transform:uppercase; font-weight:700; font-size:12px; letter-spacing:.14em; color:var(--forest); }
+    .muted{ color:var(--muted); }
+
+    /* ---------- UTIL ---------- */
+    .row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .stack{ display:flex; flex-direction:column; gap:10px; }
+    .spacer{ height:8px; }
+    .badge{ display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:12px; padding:8px 12px; border-radius:999px; background:#fff; border:1px solid #e8e8e8; }
+    .cta{ display:inline-block; background:var(--charcoal); color:#fff; padding:10px 16px; border-radius:12px; text-decoration:none; font-weight:700; font-size:13px; }
+
+    .chip{ display:inline-flex; align-items:center; gap:8px; font-size:12px; padding:6px 10px; border-radius:999px; background:#f6f3ee; border:1px dashed #cfc6b6; }
+
+    /* ---------- ICONOGRAPHY (SVG via <use>) ---------- */
+    .icon{ width:16px; height:16px; display:inline-block; }
+
+    /* ---------- TABLE ---------- */
+    table.spec{ border-collapse:separate; border-spacing:0; width:100%; font-size:13px; }
+    .spec tr td{ padding:10px 12px; border-bottom:1px solid #eee; }
+    .spec tr td:first-child{ color:#444; width:35%; }
+
+    /* ---------- PLACEHOLDER BLOCKS ---------- */
+    figure.ph{ margin:0; border-radius:18px; overflow:hidden; border:1px solid #e9e2d5; background:conic-gradient(from 90deg at 20% 20%, #fff, #F7F3EC, #fff); position:relative; }
+    .ph .frame{ aspect-ratio: 16/9; width:100%; display:grid; place-items:center; background:linear-gradient(120deg, rgba(57,91,68,.06), rgba(17,17,17,.08)); }
+    .ph svg.qr{ width:120px; height:120px; opacity:.65; }
+    figcaption{ font-size:11px; padding:8px 10px 10px; background:#fff; border-top:1px solid #eee; color:#555; }
+    figcaption code{ font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:10px; }
+
+    @media print{
+      .badge { background:transparent; }
+      figcaption{ color:#777; }
+    }
+
+    /* ---------- COVER DECOR ---------- */
+    .cover .content{ inset:16mm; }
+    .cover .ribbon{ position:absolute; right:-40mm; top:-40mm; width:220mm; height:220mm; transform:rotate(35deg); background:linear-gradient( to bottom, rgba(17,17,17,.08), rgba(57,91,68,.08)); border-radius:48px; filter:blur(10px); }
+    .cover .brand-lines{ position:absolute; bottom:30mm; left:16mm; display:flex; gap:8px; }
+    .cover .brand-lines span{ display:block; width:54px; height:3px; background:var(--charcoal); border-radius:6px; }
+
+    /* ---------- FOOTER ---------- */
+    .legal{ font-size:10px; color:#777; }
+  </style>
+</head>
+<body>
+  <!-- SVG DEFS (icons, motifs, color chips) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <!-- droplet icon -->
+      <symbol id="i-droplet" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12 2s6 7 6 11a6 6 0 1 1-12 0c0-4 6-11 6-11z"/>
+      </symbol>
+      <!-- leaf icon -->
+      <symbol id="i-leaf" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M4 13c7-9 16-9 16-9s0 9-9 16c-4 4-7 1-7-1s0-3 0-6z"/>
+      </symbol>
+      <!-- stitch/shield icon -->
+      <symbol id="i-stitch" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12 2l7 3v6c0 5-3.5 9-7 11C8.5 20 5 16 5 11V5l7-3z"/>
+        <path d="M8 9h8M8 12h8M8 15h8" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/>
+      </symbol>
+      <!-- truck icon -->
+      <symbol id="i-truck" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M3 6h12v9H3zM15 9h4l2 3v3h-6zM6 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+      </symbol>
+      <!-- headset icon -->
+      <symbol id="i-headset" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12 3a9 9 0 0 0-9 9v5a2 2 0 0 0 2 2h2v-6H5v-1a7 7 0 1 1 14 0v1h-2v6h2a2 2 0 0 0 2-2v-5a9 9 0 0 0-9-9z"/>
+      </symbol>
+      <!-- spark icon for badges -->
+      <symbol id="i-spark" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12 2l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/>
+      </symbol>
+
+      <!-- Color chips -->
+      <symbol id="chip-charcoal" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#111"/></symbol>
+      <symbol id="chip-sand" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#DCCDB4" stroke="#b7a98e"/></symbol>
+      <symbol id="chip-forest" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#395B44"/></symbol>
+
+      <!-- QR placeholder pattern -->
+      <pattern id="qr" width="8" height="8" patternUnits="userSpaceOnUse">
+        <rect width="8" height="8" fill="#fff"/>
+        <rect x="0" y="0" width="4" height="4" fill="#111"/>
+        <rect x="4" y="4" width="4" height="4" fill="#111"/>
+      </pattern>
+    </defs>
+  </svg>
+
+  <!-- ================= PAGE 1: COVER (FRONT) ================= -->
+  <section class="sheet cover" style="background:var(--sand)">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="ribbon" aria-hidden="true"></div>
+
+    <div class="content">
+      <div class="brand" style="font-weight:800; font-size:18px; letter-spacing:.12em;">TRAGWERK</div>
+      <div class="stack" style="margin-top:auto; max-width:70%">
+        <div class="kicker">Wholesale · 2025</div>
+        <h1>Ein Rucksack. Drei Wege.</h1>
+        <h2>Minimalistisch. Robust. Nachhaltig.</h2>
+        <div class="spacer"></div>
+        <a class="cta" href="#p3">Zum Produktüberblick</a>
+        <div class="spacer"></div>
+        <span class="badge"><svg class="icon"><use href="#i-spark"/></svg> Designed in Germany</span>
+      </div>
+
+      <figure class="ph" style="margin-top:8mm">
+        <img src="https://github.com/hsdarestani/firsttask/blob/main/8.png" alt="TRAGWERK Backpack Cover" style="width:100%; border-radius:18px;" />
+        </div>
+
+      </figure>
+
+      <div class="brand-lines" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="legal">© <span id="yr"></span> TRAGWERK · www.tragwerk.de</div>
+    </div>
+  </section>
+
+  <!-- ================= PAGE 2: STORY (INSIDE LEFT) ================= -->
+  <section class="sheet">
+    <div class="content">
+      <div class="kicker">Warum TRAGWERK?</div>
+      <h1 class="brand">Minimalistisches Design. Smarte Funktion. Drei Zielgruppen.</h1>
+      <p>TRAGWERK vereint klare Form mit Alltagstauglichkeit. Entwickelt in Deutschland, produziert nachhaltig – für Menschen, die Qualität schätzen. Mit einem Modell erreichen Sie <strong>Studierende, Young Professionals</strong> und <strong>Outdoor-Liebhaber</strong>.</p>
+
+      <div class="row" style="align-items:start; margin-top:6mm">
+        <figure class="ph">
+          <div class="frame">
+            <svg width="92%" viewBox="0 0 640 360" role="img" aria-label="Lifestyle Collage Placeholder">
+              <defs>
+                <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#395B44" stop-opacity=".08"/>
+                  <stop offset="1" stop-color="#111" stop-opacity=".10"/>
+                </linearGradient>
+              </defs>
+              <rect width="640" height="360" rx="18" fill="url(#g2)"/>
+              <g opacity=".55">
+                <rect x="20" y="20" width="180" height="320" rx="14" fill="#fff"/>
+                <rect x="230" y="20" width="180" height="150" rx="14" fill="#fff"/>
+                <rect x="230" y="190" width="180" height="150" rx="14" fill="#fff"/>
+                <rect x="440" y="20" width="180" height="320" rx="14" fill="#fff"/>
+              </g>
+            </svg>
+          </div>
+          <figcaption>
+            <strong>IMAGE PROMPT (Lifestyle Collage):</strong>
+            <code>Three-scene collage: (1) Student at university table, backpack beside laptop; (2) Young professional entering office elevator with backpack; (3) Man on forest trail with backpack. Same minimalist backpack. Clean, high-contrast, soft daylight. Cohesive color palette charcoal / sand / forest. No other logos.</code>
+          </figcaption>
+        </figure>
+        <div class="stack">
+          <div class="chip"><svg class="icon"><use href="#i-stitch"/></svg> Robuste Verarbeitung</div>
+          <p class="muted">Langlebiges Gewebe, verstärkte Nähte – gebaut für Jahre.</p>
+          <div class="chip"><svg class="icon"><use href="#i-droplet"/></svg> Wasserabweisend</div>
+          <p class="muted">Dein Equipment bleibt trocken – Regen kann warten.</p>
+          <div class="chip"><svg class="icon"><use href="#i-leaf"/></svg> Nachhaltig gedacht</div>
+          <p class="muted">Recycelte Materialien, fair produziert.</p>
+          <div class="spacer"></div>
+          <span class="badge"><svg class="icon"><use href="#i-spark"/></svg> Clean Look, clever innen.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PAGE 3: PRODUCT (INSIDE RIGHT) ================= -->
+  <section class="sheet" id="p3">
+    <div class="content">
+      <div class="kicker">Produkt</div>
+      <h1 class="brand">Das Produkt im Überblick</h1>
+      <p>Ein Modell – drei Farben. Minimaler Footprint, maximale Relevanz am POS.</p>
+
+      <figure class="ph">
+        <img src="https://github.com/hsdarestani/firsttask/blob/main/9.png" alt="TRAGWERK Backpack Cover" style="width:100%; border-radius:18px;" />
+
+      </figure>
+
+      <div class="row">
+        <div class="stack">
+          <table class="spec">
+            <tr><td>Gewicht</td><td>890 g</td></tr>
+            <tr><td>Maße</td><td>45 × 30 × 15 cm</td></tr>
+            <tr><td>Volumen</td><td>22 L</td></tr>
+            <tr><td>Laptopfach</td><td>bis 16″</td></tr>
+            <tr><td>Garantie</td><td>2 Jahre</td></tr>
+          </table>
+        </div>
+        <div class="stack">
+          <h2>Wholesale USP</h2>
+          <p><strong>Low MOQ:</strong> ab 100 Stück · <strong>Flexible Branding:</strong> Hangtags oder Co‑Branding · <strong>High Turnover:</strong> spricht mehrere Zielgruppen an</p>
+          <div class="spacer"></div>
+          <div class="badge"><svg class="icon"><use href="#chip-charcoal"/></svg> Charcoal</div>
+          <div class="badge"><svg class="icon"><use href="#chip-sand"/></svg> Sand</div>
+          <div class="badge"><svg class="icon"><use href="#chip-forest"/></svg> Forest</div>
+          <div class="spacer"></div>
+          <p><strong>UVP:</strong> 149 € · <strong>Wholesale:</strong> ab 89 € (volumenabhängig) · <strong>Marge:</strong> bis zu 40 %</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PAGE 4: PARTNER & CONTACT (BACK) ================= -->
+  <section class="sheet">
+    <div class="content">
+      <div class="kicker">Partner werden</div>
+      <h1 class="brand">Ihre Vorteile als TRAGWERK‑Partner</h1>
+
+      <div class="row" style="align-items:start;">
+        <div class="stack">
+          <div class="chip"><svg class="icon"><use href="#i-headset"/></svg> Persönlicher B2B Account Manager</div>
+          <div class="chip"><svg class="icon"><use href="#i-truck"/></svg> EU‑Lieferung 3–5 Werktage</div>
+          <div class="chip"><svg class="icon"><use href="#i-spark"/></svg> Marketing‑Support & POS‑Material</div>
+          <div class="chip"><svg class="icon"><use href="#i-stitch"/></svg> Digitaler Katalog & Bildmaterial</div>
+          <div class="spacer"></div>
+          <p class="muted">Auf Wunsch: Datenfeed (CSV/JSON) für Ihr PIM, sowie Musterlieferung in 5–7 Tagen.</p>
+        </div>
+        <figure class="ph" style="align-self:stretch">
+          <img src="https://github.com/hsdarestani/firsttask/blob/main/10.png" alt="TRAGWERK Backpack Cover" style="width:100%; border-radius:18px;" />
+
+        </figure>
+      </div>
+
+      <div class="legal">© <span id="yr2"></span> TRAGWERK · Impressum · Datenschutz</div>
+    </div>
+  </section>
+
+  <script>
+    const y = new Date().getFullYear();
+    document.getElementById('yr').textContent = y;
+    document.getElementById('yr2').textContent = y;
+  </script>
+</body>
+</html>
