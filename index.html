@@ -257,9 +257,7 @@
           <button id="saveBtn" class="inline-flex items-center gap-2 rounded-xl bg-black text-white px-4 py-2 hover:bg-slate-800">
             <i data-lucide="download" class="h-4 w-4"></i> PDF speichern
           </button>
-          <a href="#" id="mailtoBtn" class="inline-flex items-center gap-2 rounded-xl border px-4 py-2 hover:bg-slate-50">
-            <i data-lucide="mail" class="h-4 w-4"></i> Mail-Entwurf öffnen
-          </a>
+
           <span id="statusMsg" class="text-sm text-slate-500"></span>
         </div>
       </form>
@@ -469,7 +467,7 @@ document.getElementById("ocrForm").addEventListener("submit", async (e)=>{
         const res = await fetch(WEBHOOK_URL, { method: 'POST', body: up });
         if (!res.ok) throw new Error('Upload fehlgeschlagen');
         statusMsg.textContent = 'PDF gespeichert · ✔ In die Cloud hochgeladen.';
-      } catch(err){ statusMsg.textContent = 'PDF gespeichert · (Upload optional) '+(err.message||'Upload fehlgeschlagen'); }
+      } catch(err){ statusMsg.textContent = 'PDF gespeichert'; }
     } else {
       statusMsg.textContent = 'PDF gespeichert.';
     }
